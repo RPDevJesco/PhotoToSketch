@@ -177,4 +177,7 @@ The modular design makes it easy to add new algorithms:
 
 ## Acknowledgments
 
-- Various edge detection algorithms are implemented based on academic research in the field of computer vision and image processing.
+- Various edge detection algorithms are implemented based on academic research in the field of computer vision and image processing. Implementation does need some cleaning up and a bit more love with parameters to make the end results better and run faster.
+
+![image](https://github.com/user-attachments/assets/1f7f9a18-2566-4df2-aef4-8aaf86f171e5)
+
