@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoToSketchApp", "PhotoToSketchApp\PhotoToSketchApp.csproj", "{054911F6-4B56-4D52-ABC8-2AE42F37A9A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EdgeDetectionLib", "EdgeDetectionLib\EdgeDetectionLib.csproj", "{157BA476-0C7B-4AD2-8CDE-403D821F4EA7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{054911F6-4B56-4D52-ABC8-2AE42F37A9A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{054911F6-4B56-4D52-ABC8-2AE42F37A9A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{054911F6-4B56-4D52-ABC8-2AE42F37A9A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{054911F6-4B56-4D52-ABC8-2AE42F37A9A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{157BA476-0C7B-4AD2-8CDE-403D821F4EA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{157BA476-0C7B-4AD2-8CDE-403D821F4EA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{157BA476-0C7B-4AD2-8CDE-403D821F4EA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{157BA476-0C7B-4AD2-8CDE-403D821F4EA7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
