@@ -88,88 +88,11 @@ Based on these characteristics, the processor selects the most appropriate algor
 - Curved/flowing edges (hair, natural objects): Edge Flow + Phase Congruency
 - Default areas (skin, gentle edges): Phase Congruency
 
-## Getting Started
+### PhotoToSketchAppRework
 
-### Prerequisites
+The same as above but implemented using the EventChains Design Pattern.
 
-- .NET 6.0 or higher
-- Visual Studio 2019 or higher
-
-### Installation
-
-1. Clone the repository
-   ```
-   git clone https://github.com/yourusername/photo-to-sketch.git
-   ```
-
-2. Open the solution file in Visual Studio
-   ```
-   PhotoToSketch.sln
-   ```
-
-3. Build the solution
-   ```
-   Build > Build Solution
-   ```
-
-### Usage
-
-1. Launch the application
-2. Click "Load Image" to select an image file
-3. Click "Process" to convert the photo to a sketch
-4. Click "Save Sketch" to save the result
-
-## Example Results
-
-The application produces high-quality sketch-like renderings with the following characteristics:
-
-- Clean, well-defined edges
-- Preserved details in complex areas
-- Natural-looking line work
-- Reduced noise in smooth regions
-- Good contrast between important and less important features
-
-## Performance Considerations
-
-- Processing large images may take time, especially when using advanced algorithms like Phase Congruency
-- The automatic region processor balances quality and performance by applying heavier algorithms only where needed
-- For faster processing, simpler algorithms like Sobel or Prewitt can be used
-
-## Algorithm Selection Guide
-
-For different types of images, consider these algorithm combinations:
-
-- **Portraits**: DoG + Phase Congruency + Edge Flow
-- **Landscapes**: Sobel + LoG + Phase Congruency
-- **Architecture**: Prewitt + LoG + Phase Congruency
-- **Detailed Textures**: Sobel + Kirsch + Scharr
-- **Line Art**: DoG + Phase Congruency + Edge Flow + Gabor
-
-## Extending the Application
-
-The modular design makes it easy to add new algorithms:
-
-1. Create a new processor class in the `EdgeDetectionLib.Algorithms` namespace
-2. Implement the edge detection algorithm with an `Apply` method that accepts and returns a `GrayscaleImage`
-3. Add corresponding methods in `ImageSketchProcessor` to expose the new algorithm
-
-### How It Works
-
-1. Converts the image to **grayscale**.
-2. Divides the image into **regions**.
-3. For each region:
-    - Measures **variance** (texture complexity).
-    - Measures **edge density** (how many edges exist).
-    - Measures **average gradient strength**.
-    - Chooses the best **single algorithm** or **combination of algorithms** for that region.
-4. **Applies the selected algorithms.**
-5. Reconstructs the **final combined image**.
-
-## 📄 Future Enhancements
-
-- Implement **overlapping block blending** to reduce hard edges between regions.
-- Add optional **manual region labeling tools (for user-specified face/hair regions)**.
-- Introduce **adaptive block sizing (quadtree-like division)** based on variance.
+- **Phase Convergence Algorithm**: This is one of the slowest algorithms to run, however, with EventChains it ends up being 14% faster than the PhotoToSketchApp's traditional implementation without the pattern.
 
 ## License
 
