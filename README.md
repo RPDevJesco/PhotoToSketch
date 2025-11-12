@@ -92,7 +92,7 @@ Based on these characteristics, the processor selects the most appropriate algor
 
 The same as above but implemented using the EventChains Design Pattern.
 
-## 📊 Performance Results
+## Performance Results
 
 Tested with Phoenix image (2426×2308 = 5.6M pixels):
 
@@ -100,9 +100,9 @@ Tested with Phoenix image (2426×2308 = 5.6M pixels):
 |-----------|-------------|-------------|----------|
 | Prewitt | 1369ms | 1436ms | +4.9% |
 | Sobel | 1338ms | 1434ms | +7.2% |
-| DoG | 2132ms | 2118ms | **-0.7%** ✅ |
+| DoG | 2132ms | 2118ms | **-0.7%** |
 | Lindeberg | 8346ms | 8613ms | +3.2% |
-| Phase Congruency | 1024798ms | 887752ms | **-13.4%** ✅🏆 |
+| Phase Congruency | 1024798ms | 887752ms | **-13.4%** |
 
 ### Key Finding: EventChains is 13.4% FASTER on Phase Congruency
 
