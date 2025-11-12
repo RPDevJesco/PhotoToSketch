@@ -92,7 +92,24 @@ Based on these characteristics, the processor selects the most appropriate algor
 
 The same as above but implemented using the EventChains Design Pattern.
 
-- **Phase Convergence Algorithm**: This is one of the slowest algorithms to run, however, with EventChains it ends up being 14% faster than the PhotoToSketchApp's traditional implementation without the pattern.
+## 📊 Performance Results
+
+Tested with Phoenix image (2426×2308 = 5.6M pixels):
+
+| Algorithm | Traditional | EventChains | Overhead |
+|-----------|-------------|-------------|----------|
+| Prewitt | 1369ms | 1436ms | +4.9% |
+| Sobel | 1338ms | 1434ms | +7.2% |
+| DoG | 2132ms | 2118ms | **-0.7%** ✅ |
+| Lindeberg | 8346ms | 8613ms | +3.2% |
+| Phase Congruency | 1024798ms | 887752ms | **-13.4%** ✅🏆 |
+
+### Key Finding: EventChains is 13.4% FASTER on Phase Congruency
+
+EventChains achieves **2 minute 17 second speedup** on the 17-minute Phase Congruency algorithm.
+- **Phase Congruency algorithm traditional** - 1024798ms (17m 5s)
+- **Phase Congruency algorithm event chains** - 887752ms (14m 48s)
+
 
 ## License
 
