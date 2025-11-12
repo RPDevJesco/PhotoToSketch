@@ -10,7 +10,7 @@ namespace PhotoToSketchApp
         /// <summary>
         /// Default entry point - can call any preferred method (manual or auto-region).
         /// </summary>
-        public Bitmap ProcessImage(Bitmap original) => ProcessWithAutomaticRegions(original);
+        public Bitmap ProcessImage(Bitmap original) => ProcessWithSobel(original);
 
         // ----------------- Automatic Region Processing -----------------
 
