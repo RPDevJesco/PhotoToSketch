@@ -33,6 +33,21 @@ namespace PhotoToSketchApp
         public Bitmap ProcessWithPhaseCongruency(Bitmap original) => ProcessSingle(original, PhaseCongruencyProcessor.Apply);
         public Bitmap ProcessWithEdgeFlow(Bitmap original) => ProcessSingle(original, EdgeFlowProcessor.Apply);
         public Bitmap ProcessWithLindebergScaleSpace(Bitmap original) => ProcessSingle(original, LindebergScaleSpaceProcessor.Apply);
+        
+        public Bitmap ProcessWithCanny(Bitmap original) => 
+            ProcessSingle(original, CannyProcessor.Apply);
+   
+        public Bitmap ProcessWithGaborFilterBank(Bitmap original) => 
+            ProcessSingle(original, GaborFilterBankProcessor.Apply);
+   
+        public Bitmap ProcessWithSIFT(Bitmap original) => 
+            ProcessSingle(original, SIFTProcessor.Apply);
+   
+        public Bitmap ProcessWithMorphologicalGradient(Bitmap original) => 
+            ProcessSingle(original, MorphologicalReconstructionProcessor.Apply);
+       
+        public Bitmap ProcessWithSobelAndDoG(Bitmap original) => 
+            CombinedProcess(original, SobelProcessor.Apply, DoGProcessor.Apply);
 
         // ----------------- Combined Processing (Pairs) -----------------
 

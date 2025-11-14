@@ -23,15 +23,38 @@ namespace PhotoToSketchApp
             {
                 cmbProcessingMethod.Items.AddRange(new object[]
                 {
-                    "Automatic Regions (Recommended) ⚠ Slow",
-                    "Sobel Edge Detection ⚡ Fast",
-                    "Prewitt Edge Detection ⚡ Fast",
-                    "DoG (Difference of Gaussians) ⚡ Fast",
-                    "Phase Congruency ⚠ Slow",
-                    "Edge Flow ⚡ Fast",
-                    "Sobel + DoG Combination ⚡ Fast",
-                    "DoG + Phase Congruency + Edge Flow ⚠ Very Slow",
-                    "Lindeberg Scale Space ⚡ Fast"
+                    // ⚡⚡⚡ FASTEST TIER
+                    "Roberts",
+                    "Prewitt",
+                    "Sobel",
+                    "Scharr",
+        
+                    // ⚡⚡ FAST TIER
+                    "DoG (Difference of Gaussians)",
+                    "Lindeberg Scale Space",
+                    "LoG",
+                    "Kirsch",
+        
+                    // ⚙️ MEDIUM TIER
+                    "Morphological Gradient",
+                    "Edge Flow",
+                    "Canny Edge Detection",
+        
+                    // 🐌 SLOW TIER
+                    "Gabor Filter",
+                    "Gabor Filter Bank",
+                    "Phase Congruency",
+        
+                    // 🐢 SLOWEST TIER
+                    "SIFT Feature Detection",
+        
+                    // COMBINATIONS
+                    "Sobel + DoG",
+                    "Sobel + LoG",
+                    "DoG + Phase Congruency + Edge Flow",
+        
+                    // ADAPTIVE (uses multiple algorithms per region)
+                    "Automatic Regions"
                 });
                 cmbProcessingMethod.SelectedIndex = 3; // Default to DoG (fast and S-grade quality)
             }
@@ -93,33 +116,77 @@ namespace PhotoToSketchApp
                 
                 switch (selectedMethod)
                 {
-                    case 0: // Automatic Regions
-                        sketchImage = processor.ProcessWithAutomaticRegions(originalImage);
+                    // FASTEST TIER
+                    case 0: // Roberts
+                        sketchImage = processor.ProcessWithRoberts(originalImage);
                         break;
-                    case 1: // Sobel
-                        sketchImage = processor.ProcessWithSobel(originalImage);
-                        break;
-                    case 2: // Prewitt
+                    case 1: // Prewitt
                         sketchImage = processor.ProcessWithPrewitt(originalImage);
                         break;
-                    case 3: // DoG
+                    case 2: // Sobel
+                        sketchImage = processor.ProcessWithSobel(originalImage);
+                        break;
+                    case 3: // Scharr
+                        sketchImage = processor.ProcessWithScharr(originalImage);
+                        break;
+                        
+                    // FAST TIER
+                    case 4: // DoG (DEFAULT - best balance)
                         sketchImage = processor.ProcessWithDoG(originalImage);
                         break;
-                    case 4: // Phase Congruency
-                        sketchImage = processor.ProcessWithPhaseCongruency(originalImage);
-                        break;
-                    case 5: // Edge Flow
-                        sketchImage = processor.ProcessWithEdgeFlow(originalImage);
-                        break;
-                    case 6: // Sobel + DoG
-                        sketchImage = processor.ProcessWithSobelAndLoG(originalImage);
-                        break;
-                    case 7: // Triple Combo
-                        sketchImage = processor.ProcessWithDoGPhaseCongruencyAndEdgeFlow(originalImage);
-                        break;
-                    case 8: // Lindeberg
+                    case 5: // Lindeberg
                         sketchImage = processor.ProcessWithLindebergScaleSpace(originalImage);
                         break;
+                    case 6: // LoG
+                        sketchImage = processor.ProcessWithLoG(originalImage);
+                        break;
+                    case 7: // Kirsch
+                        sketchImage = processor.ProcessWithKirsch(originalImage);
+                        break;
+                        
+                    // MEDIUM TIER
+                    case 8: // Morphological
+                        sketchImage = processor.ProcessWithMorphologicalGradient(originalImage);
+                        break;
+                    case 9: // Edge Flow
+                        sketchImage = processor.ProcessWithEdgeFlow(originalImage);
+                        break;
+                    case 10: // Canny
+                        sketchImage = processor.ProcessWithCanny(originalImage);
+                        break;
+                        
+                    // SLOW TIER
+                    case 11: // Gabor
+                        sketchImage = processor.ProcessWithGaborFilter(originalImage);
+                        break;
+                    case 12: // Gabor Bank
+                        sketchImage = processor.ProcessWithGaborFilterBank(originalImage);
+                        break;
+                    case 13: // Phase Congruency
+                        sketchImage = processor.ProcessWithPhaseCongruency(originalImage);
+                        break;
+                        
+                    // SLOWEST TIER
+                    case 14: // SIFT
+                        sketchImage = processor.ProcessWithSIFT(originalImage);
+                        break;
+                        
+                    // COMBINATIONS
+                    case 15: // Sobel + DoG
+                        sketchImage = processor.ProcessWithSobelAndDoG(originalImage);
+                        break;
+                    case 16: // Sobel + LoG
+                        sketchImage = processor.ProcessWithSobelAndLoG(originalImage);
+                        break;
+                    case 17: // Triple combo
+                        sketchImage = processor.ProcessWithDoGPhaseCongruencyAndEdgeFlow(originalImage);
+                        break;
+                        
+                    // ADAPTIVE
+                    case 18: // Automatic Regions
+                        sketchImage = processor.ProcessWithAutomaticRegions(originalImage);
+                        break;
+                        
                     default:
                         sketchImage = processor.ProcessWithDoG(originalImage);
                         break;

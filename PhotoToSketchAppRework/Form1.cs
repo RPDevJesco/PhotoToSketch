@@ -27,15 +27,38 @@ namespace PhotoToSketchRework
             {
                 cmbProcessingMethod.Items.AddRange(new object[]
                 {
-                    "Automatic Regions (Recommended)",
-                    "Sobel Edge Detection",
-                    "Prewitt Edge Detection",
+                    // ⚡⚡⚡ FASTEST TIER
+                    "Roberts",
+                    "Prewitt",
+                    "Sobel",
+                    "Scharr",
+        
+                    // ⚡⚡ FAST TIER
                     "DoG (Difference of Gaussians)",
-                    "Phase Congruency",
+                    "Lindeberg Scale Space",
+                    "LoG",
+                    "Kirsch",
+        
+                    // ⚙️ MEDIUM TIER
+                    "Morphological Gradient",
                     "Edge Flow",
-                    "Sobel + DoG Combination",
+                    "Canny Edge Detection",
+        
+                    // 🐌 SLOW TIER
+                    "Gabor Filter",
+                    "Gabor Filter Bank",
+                    "Phase Congruency",
+        
+                    // 🐢 SLOWEST TIER
+                    "SIFT Feature Detection",
+        
+                    // COMBINATIONS
+                    "Sobel + DoG",
+                    "Sobel + LoG",
                     "DoG + Phase Congruency + Edge Flow",
-                    "Lindeberg Scale Space"
+        
+                    // ADAPTIVE (uses multiple algorithms per region)
+                    "Automatic Regions"
                 });
                 cmbProcessingMethod.SelectedIndex = 0;
             }
@@ -139,41 +162,103 @@ namespace PhotoToSketchRework
 
             switch (selectedMethod)
             {
-                case 0: // Automatic Regions (Recommended)
-                    chain = builder.BuildAutomaticRegionChain(blockSize: 32);
-                    break;
-
-                case 1: // Sobel
+                // ⚡⚡⚡ FASTEST TIER
+                case 0: // Roberts
                     chain = builder.BuildSingleAlgorithmChain(
-                        EdgeDetectionLib.Algorithms.SobelProcessor.Apply,
-                        "Sobel");
+                        EdgeDetectionLib.Algorithms.RobertsProcessor.Apply,
+                        "Roberts");
                     break;
 
-                case 2: // Prewitt
+                case 1: // Prewitt
                     chain = builder.BuildSingleAlgorithmChain(
                         EdgeDetectionLib.Algorithms.PrewittProcessor.Apply,
                         "Prewitt");
                     break;
 
-                case 3: // DoG
+                case 2: // Sobel
+                    chain = builder.BuildSingleAlgorithmChain(
+                        EdgeDetectionLib.Algorithms.SobelProcessor.Apply,
+                        "Sobel");
+                    break;
+
+                case 3: // Scharr
+                    chain = builder.BuildSingleAlgorithmChain(
+                        EdgeDetectionLib.Algorithms.ScharrProcessor.Apply,
+                        "Scharr");
+                    break;
+
+                // ⚡⚡ FAST TIER
+                case 4: // DoG (DEFAULT - best balance)
                     chain = builder.BuildSingleAlgorithmChain(
                         EdgeDetectionLib.Algorithms.DoGProcessor.Apply,
                         "DoG");
                     break;
 
-                case 4: // Phase Congruency
+                case 5: // Lindeberg Scale Space
                     chain = builder.BuildSingleAlgorithmChain(
-                        EdgeDetectionLib.Algorithms.PhaseCongruencyProcessor.Apply,
-                        "PhaseCongruency");
+                        EdgeDetectionLib.Algorithms.LindebergScaleSpaceProcessor.Apply,
+                        "LindebergScaleSpace");
                     break;
 
-                case 5: // Edge Flow
+                case 6: // LoG
+                    chain = builder.BuildSingleAlgorithmChain(
+                        EdgeDetectionLib.Algorithms.LoGProcessor.Apply,
+                        "LoG");
+                    break;
+
+                case 7: // Kirsch
+                    chain = builder.BuildSingleAlgorithmChain(
+                        EdgeDetectionLib.Algorithms.KirschProcessor.Apply,
+                        "Kirsch");
+                    break;
+
+                // ⚙️ MEDIUM TIER
+                case 8: // Morphological Gradient
+                    chain = builder.BuildSingleAlgorithmChain(
+                        EdgeDetectionLib.Algorithms.MorphologicalReconstructionProcessor.Apply,
+                        "MorphologicalGradient");
+                    break;
+
+                case 9: // Edge Flow
                     chain = builder.BuildSingleAlgorithmChain(
                         EdgeDetectionLib.Algorithms.EdgeFlowProcessor.Apply,
                         "EdgeFlow");
                     break;
 
-                case 6: // Sobel + DoG
+                case 10: // Canny
+                    chain = builder.BuildSingleAlgorithmChain(
+                        EdgeDetectionLib.Algorithms.CannyProcessor.Apply,
+                        "Canny");
+                    break;
+
+                // 🐌 SLOW TIER
+                case 11: // Gabor Filter
+                    chain = builder.BuildSingleAlgorithmChain(
+                        img => EdgeDetectionLib.Algorithms.GaborFilterProcessor.Apply(img, Math.PI / 4, 4.0, 2.0, 0.5),
+                        "GaborFilter");
+                    break;
+
+                case 12: // Gabor Filter Bank
+                    chain = builder.BuildSingleAlgorithmChain(
+                        EdgeDetectionLib.Algorithms.GaborFilterBankProcessor.Apply,
+                        "GaborFilterBank");
+                    break;
+
+                case 13: // Phase Congruency
+                    chain = builder.BuildSingleAlgorithmChain(
+                        EdgeDetectionLib.Algorithms.PhaseCongruencyProcessor.Apply,
+                        "PhaseCongruency");
+                    break;
+
+                // 🐢 SLOWEST TIER
+                case 14: // SIFT
+                    chain = builder.BuildSingleAlgorithmChain(
+                        EdgeDetectionLib.Algorithms.SIFTProcessor.Apply,
+                        "SIFT");
+                    break;
+
+                // COMBINATIONS
+                case 15: // Sobel + DoG
                     chain = builder.BuildDualAlgorithmChain(
                         EdgeDetectionLib.Algorithms.SobelProcessor.Apply,
                         "Sobel",
@@ -181,7 +266,15 @@ namespace PhotoToSketchRework
                         "DoG");
                     break;
 
-                case 7: // DoG + Phase Congruency + Edge Flow
+                case 16: // Sobel + LoG
+                    chain = builder.BuildDualAlgorithmChain(
+                        EdgeDetectionLib.Algorithms.SobelProcessor.Apply,
+                        "Sobel",
+                        EdgeDetectionLib.Algorithms.LoGProcessor.Apply,
+                        "LoG");
+                    break;
+
+                case 17: // DoG + Phase Congruency + Edge Flow (Triple)
                     chain = builder.BuildTripleAlgorithmChain(
                         EdgeDetectionLib.Algorithms.DoGProcessor.Apply,
                         "DoG",
@@ -191,14 +284,16 @@ namespace PhotoToSketchRework
                         "EdgeFlow");
                     break;
 
-                case 8: // Lindeberg Scale Space
-                    chain = builder.BuildSingleAlgorithmChain(
-                        EdgeDetectionLib.Algorithms.LindebergScaleSpaceProcessor.Apply,
-                        "LindebergScaleSpace");
+                // ADAPTIVE
+                case 18: // Automatic Regions
+                    chain = builder.BuildAutomaticRegionChain(blockSize: 32);
                     break;
 
                 default:
-                    chain = builder.BuildAutomaticRegionChain();
+                    // Default to DoG - best quality/speed balance
+                    chain = builder.BuildSingleAlgorithmChain(
+                        EdgeDetectionLib.Algorithms.DoGProcessor.Apply,
+                        "DoG");
                     break;
             }
 

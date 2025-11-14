@@ -172,6 +172,20 @@ namespace ImageProcessing.Events
             ExecuteAndGetSketch(BuildSingleAlgorithmChain(
                 img => GaborFilterProcessor.Apply(img, Math.PI / 4, 4.0, 2.0, 0.5), "GaborFilter"));
 
+        public Bitmap ProcessWithCanny() => 
+            ExecuteAndGetSketch(BuildSingleAlgorithmChain(CannyProcessor.Apply, "Canny"));
+   
+        public Bitmap ProcessWithGaborFilterBank() => 
+            ExecuteAndGetSketch(BuildSingleAlgorithmChain(
+                GaborFilterBankProcessor.Apply, "GaborBank"));
+   
+        public Bitmap ProcessWithSIFT() => 
+            ExecuteAndGetSketch(BuildSingleAlgorithmChain(SIFTProcessor.Apply, "SIFT"));
+   
+        public Bitmap ProcessWithMorphological() => 
+            ExecuteAndGetSketch(BuildSingleAlgorithmChain(
+                MorphologicalReconstructionProcessor.Apply, "Morphological"));
+        
         // Dual algorithm combinations
 
         public Bitmap ProcessWithSobelAndPrewitt() => 
